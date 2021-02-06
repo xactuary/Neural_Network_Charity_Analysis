@@ -67,8 +67,32 @@ Original model Loss  .55785
   dropVariable
   ![]()
   
-3.  Try different activation functions.  
+3.  Try different activation functions for the hidden layers
 
+ Using the dropvariable model as a base since the best performance so far, try to run different activation functions. The original activation model was "relu".  Running it with
+
+relu - Applies the rectified linear unit activation function
+tanh  - hyperbolic tangent activation function.   - accuracy = .728  loss = .555  no improvement
+Sigmoid - accuracy = .7304  loss = .555  best performing so far
+
+4.  Try adding neurons to a hidden layer  (starting with Sigmoid/drop 3 variable model)
+   a. increase hidden layer 2 to 8 from 4 - accuracy = .73072  loss = .555 - tiny increase so try increasing layer 1
+   b.  increase hidden layer 1 from 8 to 12, keep hid 2 at 8  accuracy = .73026, loss = .552  no improvement to accuracy tiny decrease to loww5.
+   c.  try more neurons on 2nd layer than 1st layer - don't know if this is possible....
+   
+5.  Add additional hidden layer (keep new neurons on 1 and 2) neurons = 6  accuracy = .7300 so went down a bit  Loss = .554
+
+6.  Increasing Epochs to 100 
+Using original 2 hidden layers
+increase layer 2 neurons to 8
+removed 3 variables
+Used Sigmoid activation on hidden layers
+
+
+
+
+
+ 
 
 
 
