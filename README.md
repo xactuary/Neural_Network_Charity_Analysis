@@ -79,9 +79,9 @@ So to try and improve the model, I have explored various adjustments.
 I have run additional model variations described below:
 
 1.  Bin additional variables.    
-  a.  I changed the bin for CLASSIFCATION to put classes with less than 100 in Other (rather than 500)
-  b.  USE_CASE - I added a bin for this variable and put classes with less than 5,000 observations into "other"
-  c.  ORGANIZATION - I binned those less than 10,000 into other since there are really just two major categories that matter for this variable
+    *  I changed the bin for CLASSIFCATION to put classes with less than 100 in Other (rather than 500)
+    *  USE_CASE - I added a bin for this variable and put classes with less than 5,000 observations into "other"
+    *  ORGANIZATION - I binned those less than 10,000 into other since there are really just two major categories that matter for this variable
   
 This extra binning changed overall accuracy to .7259 with loss at .555.  This is slightly worse than the original model so am keeping the original model to make more adjustments to
 
@@ -90,9 +90,9 @@ This extra binning changed overall accuracy to .7259 with loss at .555.  This is
  
  
 2.  Removed variables that don't have much differentiation
-    a.  removed "SPECIAL_CONSIDERATIONS' since all are "N" except for 27 "Y" which is too small a percent to be important
-    b.  removed "STATUS" because almost all except 5 observations are a "1"
-    c.  removed "ASK_AMT" because this variable is almost all 5000 and then numerous other amounts that only have 1 entry
+    *  removed "SPECIAL_CONSIDERATIONS' since all are "N" except for 27 "Y" which is too small a percent to be important
+    *  removed "STATUS" because almost all except 5 observations are a "1"
+    *  removed "ASK_AMT" because this variable is almost all 5000 and then numerous other amounts that only have 1 entry
   
 Keeping the binning as the original and removing these three variables results in accuracy of:  .7296 which is slightly better than the original model so I am keeping these variables out of the model. 
  
