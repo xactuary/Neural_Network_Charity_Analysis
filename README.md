@@ -28,24 +28,31 @@ the following data fields have been removed in order to prepare for the machine 
 2.  NAME of organization
 
 A summary of the unique values within each of the remainder possible features is:
-unique
-![]()
+unique  
+
+
+![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/unique.PNG)
+
 
 To explore whether any values should be bucketed into classes within these possible features, I looked at the 2 fields that have more than 10 unique values. 
 
 The APPLICATION_TYPE field has 17 unique classes.  
 buckets
-![]()
+
+
+![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/BucketData.PNG)
+
 
 The preponderance of the data is in class T3.  With over 27,000 observations, this data point leaves a hump far out on the density function.
 density
-![]()
+
+
+![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/density.PNG)
+
+
 To reduce the variation in this class, I have bucketed all classes with counts less than 500 into an "other" bucket.
 
 The other object variable with more than 10 unique instances is the CLASSIFICATION variable.  I have reduced this by bucketing classes with fewer than 1800 values into "Other".
-
-Class
-![]()
 
 In order to prepare the remaining variables for the machine learning model, I have encoded the remaining categorical variables using OneHotEncoder.  This results in 41 feature columns.  The encoded categorical values are then merged with the remainder of the original dataset and the original redundant encoded variables are deleted.  This leaves us with 44 features in our dataset. 
 
@@ -53,7 +60,7 @@ After pre-processing, the data is split into a target array using the variable "
 
 ##  MODEL SET-UP
 
-I have used deep neural net model with 2 hidden node layers.  The 1st hidden layer is assigned 8 neurons whereas the 2nd hidden layer has 4 neurons. I have started with 2 hidden layers because this is the generally accepted level of sufficiency for deep networks (Cybenko 1988).  In addition, this is a fairly simple dataset so there is not much need for an over complicated model. With too many nodes, the model will tend to overfit the training data and then would not perform well on the test data.  
+I have used a deep neural net model with 2 hidden node layers.  The 1st hidden layer is assigned 8 neurons whereas the 2nd hidden layer has 4 neurons. I have started with 2 hidden layers because this is the generally accepted level of sufficiency for deep networks (Cybenko 1988).  In addition, this is a fairly simple dataset so there is not much need for an over complicated model. With too many nodes, the model will tend to overfit the training data and then would not perform well on the test data.  
 
 To select the number of neurons in the hidden layer, I selected values that had been used before in the learning module.  8 for first hidden node and 4 for the 2nd hidden node.  Further research revealed a rule of thumb that is wide open, "the optimal size of the hidden layer is usually between the size of the input and size of the output layers."  So this is somewhere between 1 and 43.  To start, however, I wanted to choose a smaller amount so the model didn't take too long to run.  In addition, I chose to run it with only 25 epochs to save time.  While it is running, the model clearly hits the best accuracy very quickly so 25 epochs is reasonble for this model. 
 
@@ -61,8 +68,9 @@ I used 2 activation functions because these were given by the challenge code.  T
 
 This initial model achieves an accuracy rate of .729 which is not very good.  
 
-results
-![]()
+
+![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/results.PNG)
+
 
 So to try and improve the model, I have explored various adjustments.
 
@@ -78,9 +86,9 @@ I have run additional model variations described below:
 This extra binning changed overall accuracy to .7259 with loss at .555.  This is slightly worse than the original model so am keeping the original model to make more adjustments to
 
 
-  extrabinning
-  ![]()
-
+    ![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/extra_binning.PNG)
+ 
+ 
 2.  Removed variables that don't have much differentiation
     a.  removed "SPECIAL_CONSIDERATIONS' since all are "N" except for 27 "Y" which is too small a percent to be important
     b.  removed "STATUS" because almost all except 5 observations are a "1"
@@ -88,22 +96,31 @@ This extra binning changed overall accuracy to .7259 with loss at .555.  This is
   
 Keeping the binning as the original and removing these three variables results in accuracy of:  .7296 which is slightly better than the original model so I am keeping these variables out of the model. 
  
-  
-  dropVariable
-  ![]()
-  
+ 
+  ![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/dropvariables.PNG)
+ 
+ 
 3.  Try different activation functions for the hidden layers
 
  Using the dropvariable model as a base since it is the best performer so far, I try to run different activation functions. The original activation model was "relu".  Running it with
 
     *  relu - Applies the rectified linear unit activation function
     *  tanh  - hyperbolic tangent activation function.   - accuracy = .728  loss = .555  no improvement
+ 
+ 
+    ![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/tanh.PNG)
+     
+     
     *  Sigmoid - accuracy = .7304  loss = .555  some improvement best performing so far
-    
+ 
+ 
+    ![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/sigmoid.PNG)
+ 
+ 
 So the best model so far includes dropping the 3 variables and using the Sigmoid activation model for the hidden layers.  
 
 4.  Now I tried adding neurons to a hidden layer  (starting with Sigmoid/drop 3 variable model)  
-    * increase hidden layer 2 to 8 from 4 - accuracy = .73072  loss = .555 - tiny increase so try increasing layer 1
+    *  increase hidden layer 2 to 8 from 4 - accuracy = .73072  loss = .555 - tiny increase so try increasing layer 1
     *  increase hidden layer 1 from 8 to 12, keep hidden layer 2 at 8  accuracy = .73026, loss = .552  no improvement to accuracy tiny decrease to loww5.
   
 So the model has improved a little again by increasing the layer 2 neurons to 8.  So now my best performing model removes the 3 variables, uses the Sigmoid activation feature on hidden layers and increases the hidden layer 2 neurons to 8.  
