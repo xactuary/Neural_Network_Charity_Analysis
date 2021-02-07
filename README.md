@@ -145,9 +145,37 @@ So all the changes that were explored barely moved the dial so this dataset is n
 
 ##  RESULTS SUMMARY
 
-|
+1.  The target variable for the analysis is "IS_SUCCESSFUL"
+2.  The varialbes considered to be the features in the model are:
+    *  APPLICATION_TYPE - We don't know what the values mean but there seem to be various types of applications so this might be a feature
+    *  AFFILIATION - Independent vs Company Sponsored - this might be predictive keep
+    *  Classification - we do not know what the values mean so need to see if they are meaningful or not
+    *  USE_CASE - several different types here, keep and test
+    *  ORGANIZATION  - type of organization may or may not be predictive
+    *  STATUS - Do not know what this is, but most values are 1
+    *  INCOME_AMT - May be predictive
+    *  SPECIATION CONSIDERATIONS - Do not know if this is relevant
+    *  ASK_AMOUNT - This may be relevent
+3.  The variables that are neither target nor features are "EIN" and "NAME"
+4.  The initial model uses 2 hidden layers, the first with 8 neurons and the 2nd with 4 neurons.  Reasons are noted in narrative above.  
+5.  The model did not achieve the performance level we would want which should be above 95%.  It didn't even achieve the challenge target of over 75% including adjustments to the initial model. 
+6.  I tried including more hidden layers, more neurons, less neurons, less hidden layers, removing variables, re-binning variables and running more epochs.  None of these changes added any significant value to the accuracy metric. 
 
 
+The following table summarizes the results of the analysis.
+
+
+| Model                      | Specifications                                                                                      | Accuracy |
+|----------------------------|-----------------------------------------------------------------------------------------------------|----------|
+| Original                   | 2 Hidden Layers Neurons1st = 8 Neurons2nd = 4 Activation = relu Drop 2 Variables Bucket 2 Variables | .7290    |
+| Bin Additional Variables   | Same as above Bin CLASSIFICATION down to 100 rather than 500 Bin USE_CASE Bin ORGANIZATION          | .7259    |
+| Drop Variables             | Remove SPECIAL_CONSIDERATIONS, STATUS and ASK_AMT                                                   | .7297    |
+| Change Activation Function | Use Sigmoid for Hidden layers  (plus drop variables)                                                | .7305    |
+| Add additonal hidden layer | Add hidden layer 3  (including sigmoid and drop variables)                                          | .7300    |
+| Increase Epochs to 100     | Sigmoid, drop variables, increase epochs to 100                                                     | .7291    |
+
+
+None of the changes to the model significantly moved the accuracy.  It is possible that deep neural machine learning is not  the appropriate model to use for this analysis.  The deep neural networks are for very complicated relationships and/or huge amounts of data.  The dataset provided for this analysis is fairly simple.  I would be interested in starting this analysis with a simple logistic regression model to see what that produces and identify the variables that contribute most to the model.  I would then move on to a supervised machine learning model since we know the variable we want to predict.  I would consider a random forest model since it is resistant to outliers, does not require as much pre-processing, and lets us know which variables are important to the classification.  I prefer a model that is understandable rather than a black box.  
 
 
 
