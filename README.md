@@ -86,26 +86,32 @@ This extra binning changed overall accuracy to .7259 with loss at .555.  This is
     b.  removed "STATUS" because almost all except 5 observations are a "1"
     c.  removed "ASK_AMT" because this variable is almost all 5000 and then numerous other amounts that only have 1 entry
   
-  Keeping the binning as the original and removing this two variables results in accuracy of:  .7296
-  
+Keeping the binning as the original and removing these three variables results in accuracy of:  .7296 which is slightly better than the original model so I am keeping these variables out of the model. 
+ 
   
   dropVariable
   ![]()
   
 3.  Try different activation functions for the hidden layers
 
- Using the dropvariable model as a base since the best performance so far, try to run different activation functions. The original activation model was "relu".  Running it with
+ Using the dropvariable model as a base since it is the best performer so far, I try to run different activation functions. The original activation model was "relu".  Running it with
 
     *  relu - Applies the rectified linear unit activation function
     *  tanh  - hyperbolic tangent activation function.   - accuracy = .728  loss = .555  no improvement
-    *  Sigmoid - accuracy = .7304  loss = .555  best performing so far
+    *  Sigmoid - accuracy = .7304  loss = .555  some improvement best performing so far
+    
+So the best model so far includes dropping the 3 variables and using the Sigmoid activation model for the hidden layers.  
 
-4.  Try adding neurons to a hidden layer  (starting with Sigmoid/drop 3 variable model)  
+4.  Now I tried adding neurons to a hidden layer  (starting with Sigmoid/drop 3 variable model)  
     * increase hidden layer 2 to 8 from 4 - accuracy = .73072  loss = .555 - tiny increase so try increasing layer 1
-    *  increase hidden layer 1 from 8 to 12, keep hid 2 at 8  accuracy = .73026, loss = .552  no improvement to accuracy tiny decrease to loww5.
-    *  try more neurons on 2nd layer than 1st layer - don't know if this is possible....
-   
+    *  increase hidden layer 1 from 8 to 12, keep hidden layer 2 at 8  accuracy = .73026, loss = .552  no improvement to accuracy tiny decrease to loww5.
+  
+So the model has improved a little again by increasing the layer 2 neurons to 8.  So now my best performing model removes the 3 variables, uses the Sigmoid activation feature on hidden layers and increases the hidden layer 2 neurons to 8.  
+
+
 5.  Add additional hidden layer (keep new neurons on 1 and 2) neurons = 6  accuracy = .7300 so went down a bit  Loss = .554
+
+Adding an additional hidden layer does not improve the model so this was rejected.
 
 6.  Increasing Epochs to 100 - don't expect improvement because it reaches the accuracy pretty fast.
 
@@ -114,17 +120,16 @@ increase layer 2 neurons to 8
 removed 3 variables
 Used Sigmoid activation on hidden layers
 
+The accuracy did not improve by increasing the Epochs.  In fact, it went down a tiny bit.  So this is an unnecessary resource and keeping the model at 25 epochs is fine.  
 
 Accuracy = .72909
 
 So all the changes that were explored barely moved the dial so this dataset is not reliably predictive of successful charity funding so I would not use this model for those purposes.  
 
 
-TARGETED MODEL
+##  RESULTS SUMMARY
 
-MOVE APPLICATION TYPE DOWN TO <100 because there is a wide variation of success within this category
 
-Leaves us with just APPLICATION_TYPE, AFFILIATION, CLASSIFICATION AND ORGANIZATION AS FEATURES
 
 
 
