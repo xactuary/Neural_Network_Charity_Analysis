@@ -86,8 +86,7 @@ I have run additional model variations described below:
 This extra binning changed overall accuracy to .7259 with loss at .555.  This is slightly worse than the original model so am keeping the original model to make more adjustments to
 
 
-    ![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/extra_binning.PNG)
- 
+![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/extra_binning.PNG)
  
 2.  Removed variables that don't have much differentiation
     *  removed "SPECIAL_CONSIDERATIONS' since all are "N" except for 27 "Y" which is too small a percent to be important
@@ -108,13 +107,13 @@ Keeping the binning as the original and removing these three variables results i
     *  tanh  - hyperbolic tangent activation function.   - accuracy = .728  loss = .555  no improvement
  
  
-    ![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/tanh.PNG)
+ ![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/tanh.PNG)
      
      
     *  Sigmoid - accuracy = .7304  loss = .555  some improvement best performing so far
  
  
-    ![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/sigmoid.PNG)
+ ![](https://github.com/xactuary/Neural_Network_Charity_Analysis/blob/master/Resources/sigmoid.PNG)
  
  
 So the best model so far includes dropping the 3 variables and using the Sigmoid activation model for the hidden layers.  
@@ -145,6 +144,8 @@ So all the changes that were explored barely moved the dial so this dataset is n
 
 
 ##  RESULTS SUMMARY
+
+|
 
 
 
