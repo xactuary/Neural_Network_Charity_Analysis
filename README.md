@@ -10,36 +10,56 @@ Possible Features provided in the data include:
 
 *  EIN - business registration identifier - this is unique to each organization so is not predictive and will be dropped
 *  NAME - Unique identifer of charity so will be dropped
-*  APPLICATION_TYPE - We don't know what the values mean but there seem to be various types of applications so this might be a featuer
+*  APPLICATION_TYPE - We don't know what the values mean but there seem to be various types of applications so this might be a feature
 *  AFFILIATION - Independent vs Company Sponsored - this might be predictive keep
 *  Classification - we do not know what the values mean so need to see if they are meaningful or not
 *  USE_CASE - several different types here, keep and test
 *  ORGANIZATION  - type of organization may or may not be predictive
-*  STATUS - Do not know what this is
-*  INCOME_AMT - KEEP
+*  STATUS - Do not know what this is, but most values are 1
+*  INCOME_AMT - May be predictive
 *  SPECIATION CONSIDERATIONS - Do not know if this is relevant
-*  ASK_AMOUNT - this should be relavent
+*  ASK_AMOUNT - This may be relevent
 
 
-Data Preprocessing:  
+###  Data Preprocessing:  
 
-Unnecessary data fields have been removed in order to prepare for machine learning model: 
+the following data fields have been removed in order to prepare for the machine learning model because they are unique and therefore redundant for a predictive model:   
 1.  EIN 
 2.  NAME of organization
 
-The APPLICATION_TYPE field is examined to see if any values should be bucketed together.
+A summary of the unique values within each of the remainder possible features is:
+unique
+![]()
+
+To explore whether any values should be bucketed into classes within these possible features, I looked at the 2 fields that have more than 10 unique values. 
+
+The APPLICATION_TYPE field has 17 unique classes.  
 buckets
 ![]()
 
-The preponderance of the data is in class T3.  With over 27,000 observations, this data point leaves an hump far out on the density function.
+The preponderance of the data is in class T3.  With over 27,000 observations, this data point leaves a hump far out on the density function.
 density
 ![]()
-I have bucketed all classes with counts less than 500 into an "other" bucket.
+To reduce the variation in this class, I have bucketed all classes with counts less than 500 into an "other" bucket.
 
 The other object variable with more than 10 unique instances is the CLASSIFICATION variable.  I have reduced this by bucketing classes with fewer than 1800 values into "Other".
 
 Class
 ![]()
+
+In order to prepare the remaining variables for the machine learning model, I have encoded the remaining categorical variables using OneHotEncoder.  This results in 41 feature columns.  The encoded categorical values are then merged with the remainder of the original dataset and the original redundant encoded variables are deleted.  This leaves us with 44 features in our dataset. 
+
+After pre-processing, the data is split into a target array using the variable "IS_SUCCESSFUL" and all the other features are in the X dataset.  These are converted to value arrays and are then ready for running through the model after splitting into training and test datasets.  The final step is scaling the data.  
+
+##  MODEL SET-UP
+
+I have used deep neural net model with 2 hidden node layers.  The 1st hidden layer is assigned 8 neurons whereas the 2nd hidden layer has 4 neurons. I have started with 2 hidden layers because this is the generally accepted level of sufficiency for deep networks (Cybenko 1988).  In addition, this is a fairly simple dataset so there is not much need for an over complicated model. With too many nodes, the model will tend to overfit the training data and then would not perform well on the test data.  
+
+To select the number of neurons in the hidden layer, I selected values that had been used before in the learning module.  8 for first hidden node and 4 for the 2nd hidden node.  Further research revealed a rule of thumb that is wide open, "the optimal size of the hidden layer is usually between the size of the input and size of the output layers."  So this is somewhere between 1 and 43.  To start, however, I wanted to choose a smaller amount so the model didn't take too long to run.  In addition, I chose to run it with only 25 epochs to save time.  While it is running, the model clearly hits the best accuracy very quickly so 25 epochs is reasonble for this model. 
+
+I used 2 activation functions because these were given by the challenge code.  The first hidden node uses the "relu" activation model whereas the output activation model uses "sigmoid."  
+
+This model achieves an accuracy rate of .729 which is not very good.  So to try and improve the model, I have explored various adjustments.
 
 ## MODEL ADJUSTMENT TO TRY AND IMPROVE ACCURACY
 
