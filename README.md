@@ -57,21 +57,27 @@ I have used deep neural net model with 2 hidden node layers.  The 1st hidden lay
 
 To select the number of neurons in the hidden layer, I selected values that had been used before in the learning module.  8 for first hidden node and 4 for the 2nd hidden node.  Further research revealed a rule of thumb that is wide open, "the optimal size of the hidden layer is usually between the size of the input and size of the output layers."  So this is somewhere between 1 and 43.  To start, however, I wanted to choose a smaller amount so the model didn't take too long to run.  In addition, I chose to run it with only 25 epochs to save time.  While it is running, the model clearly hits the best accuracy very quickly so 25 epochs is reasonble for this model. 
 
-I used 2 activation functions because these were given by the challenge code.  The first hidden node uses the "relu" activation model whereas the output activation model uses "sigmoid."  
+I used 2 activation functions because these were given by the challenge code.  The first hidden node uses the "relu" activation model whereas the output activation model uses "sigmoid."  If these do not perform well, other activation models can be explored.  
 
-This model achieves an accuracy rate of .729 which is not very good.  So to try and improve the model, I have explored various adjustments.
+This initial model achieves an accuracy rate of .729 which is not very good.  
+
+results
+![]()
+
+So to try and improve the model, I have explored various adjustments.
 
 ## MODEL ADJUSTMENT TO TRY AND IMPROVE ACCURACY
 
-Original model accuracey .7290
-Original model Loss  .55785
+I have run additional model variations described below:
 
 1.  Bin additional variables.    
-  a.  changed bin for CLASSIFCATION to put classes with less than 100 in Other, otherwise keep their own
-  b.  USE_CASE - binned classes with less than 5,000 observations into "other"
-  c.  ORGANIZATION - binned those less than 10,000 into other since there are really just two major categories that matter for this variable
+  a.  I changed the bin for CLASSIFCATION to put classes with less than 100 in Other (rather than 500)
+  b.  USE_CASE - I added a bin for this variable and put classes with less than 5,000 observations into "other"
+  c.  ORGANIZATION - I binned those less than 10,000 into other since there are really just two major categories that matter for this variable
   
-  This extra binning changed overall accuracy to .7259 with loss at .555
+This extra binning changed overall accuracy to .7259 with loss at .555.  This is slightly worse than the original model so am keeping the original model to make more adjustments to
+
+
   extrabinning
   ![]()
 
